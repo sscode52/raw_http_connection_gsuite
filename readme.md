@@ -30,15 +30,18 @@ Before you get started you will need:
 5. Enter a name for the application and you can choose the admin credentials as the Support email address. Under ‘Authorized domains’ enter '[okta.com](http://okta.com/)' and type in your email for Developer Contact Information.
 6. Under Scopes, choose all the Scopes you require for your Workflow and click on update.
 
-![alt_text](images/image2.png "image_tooltip")
+![alt_text](images/image2.png = 250X250 "image_tooltip")
 
 7. Leave the rest to defaults and finish the process.
 8. Click on ‘Credentials’ under APIs and Services > Create credentials > OAuth Client ID. Enter a name and the following information for Authorized Origins and Redirect URIs. Copy the client ID and secret from this screen to enter on the Okta side. Hit on Save.
 
 ![alt_text](images/image3.png "image_tooltip")
 
-    **URIs: ** https://oauth.workflows.okta.com
-    **Authorized redirect URIs:** https://oauth.workflows.okta.com/oauth/httpfunctions/cb
+
+   **URIs:** https://oauth.workflows.okta.com
+   
+   **Authorized redirect URIs:** https://oauth.workflows.okta.com/oauth/httpfunctions/cb
+
 
 9. Open the Workflows Console in Okta and click on Connections. Create a new HTTP connection with the following values:
     1. Choose OAuth as the authentication method.
