@@ -5,7 +5,7 @@
 
 Our current Workflows connector for G Suite Admin does not include all functions within Google Workspace APIs . The Custom API card is also restricted to the Directory and Licensing APIs. As our product team expands the scopes and permissions for different Workspace APIs, you can use this guide as a workaround to create your own custom HTTP connector to request for specific scopes from different Workspace APIs.
 
-<span style="text-decoration:underline;">Before you get Started / Prerequisites</span>
+##<span style="text-decoration:underline;">Before you get Started / Prerequisites</span>
 
 Before you get started, here are the things you’ll need:
 
@@ -14,7 +14,7 @@ Before you get started, here are the things you’ll need:
 *   Access to an Okta tenant with Okta Workflows enabled for your org 
 *   Access to a tenant for Google Workspace
 
-<span style="text-decoration:underline;">Setup Steps</span>
+##<span style="text-decoration:underline;">Setup Steps</span>
 
 
 
@@ -68,7 +68,7 @@ Before you get started, here are the things you’ll need:
     6. Client Secret : copied from the previous step
 10. Click on Create, authorize the request with the admin G Suite credentials and you’re set to directly call Google Workspace’s APIs and perform actions based on the scopes requested.
 
-<span style="text-decoration:underline;">Testing this Flow</span>
+##<span style="text-decoration:underline;">Testing this Flow</span>
 
 To test this flow, import the flopack provided:
 
@@ -78,4 +78,4 @@ To test this flow, import the flopack provided:
 2. Click on test for that specific card and give the API endpoint you’re calling to test
 3. Verify the results on the right screen 
 
-<span style="text-decoration:underline;">Limitations & Known Issues</span>
+##<span style="text-decoration:underline;">Limitations & Known Issues</span>
