@@ -37,8 +37,8 @@ Before you get started you will need:
 
 ![alt_text](images/image3.png "image_tooltip")
 
-    **URIs: **[https://oauth.workflows.okta.com](https://oauth.workflows.okta.com)
-    **Authorized redirect URIs:** [https://oauth.workflows.okta.com/oauth/httpfunctions/cb](https://oauth.workflows.okta.com/oauth/httpfunctions/cb)
+    **URIs: ** https://oauth.workflows.okta.com
+    **Authorized redirect URIs:** https://oauth.workflows.okta.com/oauth/httpfunctions/cb
 
 9. Open the Workflows Console in Okta and click on Connections. Create a new HTTP connection with the following values:
     1. Choose OAuth as the authentication method.
