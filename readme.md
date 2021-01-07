@@ -1,56 +1,81 @@
-
-# Assign group memberships temporarily based on time
-
-
-## Overview
-
-Within Okta, you may want to give a user group membership, but only for a limited time. An example would be a group that gives auditors access to applications, but revoked after 30 days.  Another example may be a temporary development project that you want to assign developers access.
-
-These flows have two entry points. The first is triggered when a user is added to a group in Okta. This will trigger “User Added to Group” flow. This flow will search the associated group table to determine if the group a user was added to was one that has been designated at temporary access. When a user is added to a group designated as temporary, the user id, group id, and a user membership expiration date will be added to the user table. The user membership expiration date is calculated as current date/time + the duration specified in the group table. 
-
-Note: the current duration units is set to minutes for testing purposes. You would likely set this to hours or days in real use cases.
-
-The second entry point is a scheduled flow “Scan users for removal”. This flow would be set up on a scheduled basis to review the user table and determine if the user's access to a group has expired. If the access has expired (based on current date/time of scan), the user will be removed from the group, and entry deleted from the user table.
+# Custom HTTP connector for GSuite Admin in Workflows
 
 
-## Before you get Started/Prerequisites
+## <span style="text-decoration:underline;">Overview</span>
 
-Before you get started you will need:
+Our current Workflows connector for G Suite Admin does not include all functions within Google Workspace APIs . The Custom API card is also restricted to the Directory and Licensing APIs. As our product team expands the scopes and permissions for different Workspace APIs, you can use this guide as a workaround to create your own custom HTTP connector to request for specific scopes from different Workspace APIs.
+
+<span style="text-decoration:underline;">Before you get Started / Prerequisites</span>
+
+Before you get started, here are the things you’ll need:
 
 
 
-*   Access to an Okta tenant with Okta Workflows enabled for your org
-*   Create a group in Okta - example “Temp Group”
-*   This will require an Okta Connection. If you have not already configured the Okta connection in your Workflows tenant, follow these steps: [https://help.okta.com/en/prod/Content/Topics/Workflows/workflow-connect-your-applications.htm#Authenti](https://help.okta.com/en/prod/Content/Topics/Workflows/workflow-connect-your-applications.htm#Authenti)
+*   Access to an Okta tenant with Okta Workflows enabled for your org 
+*   Access to a tenant for Google Workspace
 
-
-## Workflow Setup Steps
-
-
-
-1. Set Okta Connections on the cards
-    1. In “User Added to Group” flow, click the connection of the first card “Okta User Added to Group”. Set it to your Okta connection.
-    2. In “SUB - Remove User from Group” flow, click the connection of the second card “Okta Remove User from Group”. Set it to your Okta connection.
-2. Add group names and duration to Temp Groups table
-    1. Navigate to Workflows Tables, Temporary Groups table. (this table should have been imported with your flow).
-    2. Click on the first empty row to create a new row. In the “Group Name” column, specify the name of the group you created above in prerequisites (“Temp Group”).
-    3. On the same row, click on the “Duration” column. Specify the duration of time you want that user to be allowed in the group. (The default units are minutes, and can be changed in the flow).
-    4. You can add as many groups as you as want to set up (one per row in the table).
-
-
-## Testing this flow
+<span style="text-decoration:underline;">Setup Steps</span>
 
 
 
-*   Ensure all three flows are turned on.
-*   From Okta administration, add a user to the group you have created.
-*   The “User added to Group” flow should be triggered. The flow should add the user, group, expiration to the “User Added to Temporary Groups” table.
-*   Run the “Scan users for removal” flow to scan the user table to see if users should be removed from groups. If the scan is run after the duration specified, you should see the user removed from the group and removed from the user table as clean up.
+1. Navigate to[ https://console.developers.google.com/](https://console.developers.google.com/) and login with the G Suite Admin login.
+2. If you do not already have a project, create a new project, leave the rest to defaults and click on Create:
+
+    
+
+<p id="gdcalert1" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image1.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert2">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
 
 
-## Limitations & Known Issues 
+![alt_text](images/image1.png "image_tooltip")
+
+
+3. Search for the APIs in the main Search Window, for example - Group Settings API and enable it for the project. This is done to include API specific scopes to the authorized application (Okta Workflows).
+4. While making sure you’re in the project you just created, click on “OAuth Consent Screen” under APIs and Services. Click on “Internal” to use the API for internal apps and click on Create.
+5. Enter a name for the application and you can choose the admin credentials as the Support email address. Under ‘Authorized domains’ enter '[okta.com](http://okta.com/)' and type in your email for Developer Contact Information.
+6. Under Scopes, choose all the Scopes you require for your Workflow and click on update.
+
+    
+
+<p id="gdcalert2" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image2.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert3">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
+
+
+![alt_text](images/image2.png "image_tooltip")
+
+
+7. Leave the rest to defaults and finish the process.
+8. Click on ‘Credentials’ under APIs and Services > Create credentials > OAuth Client ID. Enter a name and the following information for Authorized Origins and Redirect URIs. Copy the client ID and secret from this screen to enter on the Okta side. Hit on Save.
+
+    
+
+<p id="gdcalert3" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image3.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert4">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
+
+
+![alt_text](images/image3.png "image_tooltip")
 
 
 
-*   Keep in mind the [Okta Workflows System Limits](https://help.okta.com/en/prod/Content/Topics/Workflows/workflows-system-limits.htm).
-*   When invoking HTTP endpoints consider any applicable rate limits of the SaaS application (or http endpoint) that you are invoking. You should almost always set up error handling on the card to retry periodically.
+    **URIs: **[https://oauth.workflows.okta.com](https://oauth.workflows.okta.com)
+
+
+    **Authorized redirect URIs:** [https://oauth.workflows.okta.com/oauth/httpfunctions/cb](https://oauth.workflows.okta.com/oauth/httpfunctions/cb)
+
+9. Open the Workflows Console in Okta and click on Connections. Create a new HTTP connection with the following values:
+    1. Choose OAuth as the authentication method.
+    2. Authorize path:[ https://accounts.google.com/o/oauth2/auth](https://accounts.google.com/o/oauth2auth)
+    3. Token Path:[ https://accounts.google.com/o/oauth2/token](https://accounts.google.com/o/oauth2/token)
+    4. Scopes:[ https://www.googleapis.com/auth/apps.groups.settings](https://www.googleapis.com/auth/apps.groups.settings) (as an example - separate multiple scopes with a space)
+    5. Client ID : copied from the previous step
+    6. Client Secret : copied from the previous step
+10. Click on Create, authorize the request with the admin G Suite credentials and you’re set to directly call Google Workspace’s APIs and perform actions based on the scopes requested.
+
+<span style="text-decoration:underline;">Testing this Flow</span>
+
+To test this flow, import the flopack provided:
+
+
+
+1. Choose the new connector created in the HTTP card in the flow
+2. Click on test for that specific card and give the API endpoint you’re calling to test
+3. Verify the results on the right screen 
+
+<span style="text-decoration:underline;">Limitations & Known Issues</span>
