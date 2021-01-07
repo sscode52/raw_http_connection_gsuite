@@ -23,19 +23,19 @@ Before you get started you will need:
 1. Navigate to[ https://console.developers.google.com/](https://console.developers.google.com/) and login with the G Suite Admin login.
 2. If you do not already have a project, create a new project, leave the rest to defaults and click on Create:
 
-![alt_text](images/image1.png "image_tooltip")
+<img src="images/image1.png" width="600" height="450" class="center">
 
 3. Search for the APIs in the main Search Window, for example - Group Settings API and enable it for the project. This is done to include API specific scopes to the authorized application (Okta Workflows).
 4. While making sure you’re in the project you just created, click on “OAuth Consent Screen” under APIs and Services. Click on “Internal” to use the API for internal apps and click on Create.
 5. Enter a name for the application and you can choose the admin credentials as the Support email address. Under ‘Authorized domains’ enter '[okta.com](http://okta.com/)' and type in your email for Developer Contact Information.
 6. Under Scopes, choose all the Scopes you require for your Workflow and click on update.
 
-![alt_text](images/image2.png = 250X250 "image_tooltip")
+<img src="images/image2.png" width="600" height="450" class="center">
 
 7. Leave the rest to defaults and finish the process.
 8. Click on ‘Credentials’ under APIs and Services > Create credentials > OAuth Client ID. Enter a name and the following information for Authorized Origins and Redirect URIs. Copy the client ID and secret from this screen to enter on the Okta side. Hit on Save.
 
-![alt_text](images/image3.png "image_tooltip")
+<img src="images/image3.png" width="600" height="450" class="center">
 
 
    **URIs:** https://oauth.workflows.okta.com
@@ -54,9 +54,6 @@ Before you get started you will need:
 
 ## Testing this flow
 
-1. Choose the new connector created in the HTTP card in the flow
-2. Click on test for that specific card and give the API endpoint you’re calling to test
-3. Verify the results on the right screen 
 
 *   Ensure all three flows are turned on.
 *   Choose the new connector created in the HTTP card in the flow
