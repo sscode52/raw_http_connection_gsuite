@@ -55,7 +55,7 @@ Before you get started you will need:
 ## Testing this flow
 
 
-*   Ensure all three flows are turned on.
+*   Ensure that the flow is turned on.
 *   Choose the new connector created in the HTTP card in the flow
 *   Click on test for that specific card and give the API endpoint you’re calling to test
 *   Verify the results on the right screen 
